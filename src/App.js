@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/header'
+// import Footer from './components/footer'
+// import Main from './components/main'
 
-function App() {
+const App = () => {
+  // const data = [
+  //   {id: 1, name: 'Ade', domisili: 'Jogja'},
+  //   {id: 2, name: 'Novri', domisili: 'Jakarta'},
+  //   {id: 3, name: 'Iqbal', domisili: 'Jakarta'},
+  //   {id: 4, name: 'Eko', domisili: 'Magelang'},
+  // ]
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+      {/* <Main />
+      
+      <Footer /> */}
     </div>
   );
 }
