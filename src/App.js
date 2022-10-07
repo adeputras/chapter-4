@@ -1,22 +1,21 @@
-import Header from './components/header'
-// import Footer from './components/footer'
-// import Main from './components/main'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Homepage from './pages/Homepage';
+import CariMobil from './pages/CariMobil';
+import Detail from './pages/Detail';
+import Header from './components/header';
 
 const App = () => {
-  // const data = [
-  //   {id: 1, name: 'Ade', domisili: 'Jogja'},
-  //   {id: 2, name: 'Novri', domisili: 'Jakarta'},
-  //   {id: 3, name: 'Iqbal', domisili: 'Jakarta'},
-  //   {id: 4, name: 'Eko', domisili: 'Magelang'},
-  // ]
   return (
     <div className="App">
-      <Header/>
-      {/* <Main />
-      
-      <Footer /> */}
+      <Header />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/cari-mobil" element={<CariMobil />} />
+        <Route path="/cari-mobil/:id" element={<Detail />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
