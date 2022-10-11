@@ -12,7 +12,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/cari-mobil" element={<CariMobil />} />
-        <Route path="/cari-mobil/:id" element={<Detail />} />
+        <Route path="/cari-mobil/:productId" element={<Detail />} />
       </Routes>
     </div>
   );

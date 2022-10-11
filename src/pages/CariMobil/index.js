@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import './style.scss';
@@ -8,46 +7,14 @@ import { Bars } from 'react-loader-spinner';
 
 const CariMobil = () => {
   const [cars, setCars] = useState([]);
+  const [inputSample, setInputSample] = useState('');
+
   const [loading, setLoading] = useState(true);
 
-  // const dataCars = [
-  //   {
-  //     id: 1,
-  //     category: 4,
-  //     image: 'https://picsum.photos/id/1019/270/160',
-  //     name: 'Innova',
-  //     price: 500000,
-  //     status: true,
-  //     finish_rent_at: null,
-  //     createdAt: '2022-09-30T14:32:02.159Z',
-  //     start_rent_at: null,
-  //     updatedAt: null,
-  //     description:
-  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  //   },
-  //   {
-  //     id: 20,
-  //     category: 4,
-  //     image: 'https://picsum.photos/id/1019/270/160',
-  //     name: 'Pajero',
-  //     price: 500000,
-  //     status: true,
-  //     finish_rent_at: null,
-  //     createdAt: '2022-09-30T14:32:02.159Z',
-  //     start_rent_at: null,
-  //     updatedAt: null,
-  //     description:
-  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  //   },
-  // ];
+  const baseUrl = "http://localhost:4000";
 
-  // const getCars = () => {
-  //   fetch('https://bootcamp-rent-car.herokuapp.com/admin/car')
-  //     .then((response) => response.json())
-  //     .then((data) => setCars(dataCars));
-  // };
   const getCars = () => {
-    Axios.get('https://633ffc6ed1fcddf69cae3eac.mockapi.io/cars')
+    Axios.get(`${baseUrl}/cars`)
       .then((response) => {
         setCars(response.data);
         setLoading(false);
@@ -57,9 +24,44 @@ const CariMobil = () => {
         console.log(error)
       );
   };
+
+  const fetch = useRef(true);
+
   useEffect(() => {
-    getCars();
+    if (fetch.current) {
+      getCars();
+      fetch.current = false;
+    }
   }, []);
+
+  const submitData = () => {
+    // Axios.post('https://testapi.org/post', { name: 'John Doe' });
+
+    const formData = {
+      name: inputSample,
+      "category": 6,
+      "price": 7290,
+      "status": true,
+      "start_rent_at": "2040-07-03T03:00:07.069Z",
+      "finish_rent_at": "2002-02-26T07:56:36.623Z",
+      "image": "http://loremflickr.com/640/480/brazil,rio",
+      "createdAt": "2097-04-15T17:34:57.248Z",
+      "updatedAt": "2019-10-28T13:24:33.132Z",
+      "description": "odio.",
+    }
+
+    Axios.post(`${baseUrl}/cars`, formData)
+    .then((response) => {
+      if(response) {
+        getCars();
+        setInputSample('')
+      }
+    })
+    .catch((error) =>
+      // handle error
+      console.log(error)
+    );
+  }
 
   return (
     <div className="carimobil">
@@ -71,14 +73,13 @@ const CariMobil = () => {
             color="#4fa94d"
             ariaLabel="bars-loading"
             wrapperStyle={{}}
-            wrapperClass=""
-            // visible={true}
+            wrapperClass="bars-loading"
           />
         ) : (
           <div className="row">
             {cars.map((car, index) => {
               return (
-                <div className="col-lg-4" key={index}>
+                <div className="col-lg-3 card-wrapper" key={index}>
                   <div className="card">
                     <div className="card-thumbnail">
                       <img src={car.image} alt="" />
@@ -88,13 +89,27 @@ const CariMobil = () => {
                       <p className="price">Rp {car.price} / hari</p>
                       <p className="description">{car.description}</p>
                     </div>
-                    <Link to={`/cari-mobil/${car.id}`}>Pilih Mobil</Link>
+                    <Link className='btn btn-success d-block' to={`/cari-mobil/${car.id}`}>Pilih Mobil</Link>
                   </div>
                 </div>
               );
             })}
           </div>
         )}
+
+        <div className="form d-flex flex-column">
+          <label htmlFor="" style={{ marginBottom: 10 }}>Input Data</label>
+          <div className="d-inline-flex">
+            <input type="text" value={inputSample} onChange={(e) => setInputSample(e.target.value)}/>
+            <button style={{ marginLeft: 10 }} className='btn btn-success' type='button' onClick={submitData} >Submit</button>
+          </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
         {/* {!loading && <div className="row">
           {cars.map((car, index) => {
