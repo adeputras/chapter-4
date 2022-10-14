@@ -29,10 +29,10 @@ const Header = () => {
             </div>
             <ul className="menu">
               <li>
-                <a href="#our-services">Our Services</a>
+                <a href="/#our-services">Our Services</a>
               </li>
               <li>
-                <a href="#why">Why Us</a>
+                <a href="/#why">Why Us</a>
               </li>
               <li>
                 <a href="http://">Testimonial</a>
