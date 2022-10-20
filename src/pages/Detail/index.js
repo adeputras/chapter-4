@@ -9,12 +9,12 @@ const Detail = () => {
   const [detail, setDetail] = useState({});
   let { productId } = useParams();
 
-  const baseUrl = 'http://localhost:4000';
+  const baseUrl = 'https://bootcamp-rent-cars.herokuapp.com';
 
   const fetch = useRef(true);
 
   const getDetail = (productId) => {
-    Axios.get(`${baseUrl}/cars/${productId}`)
+    Axios.get(`${baseUrl}/customer/car/${productId}`)
     .then((response) => {
       setDetail(response.data);
     })

@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Filter = (filterData) => {
+  
   return (
     <div className="row">
           <div className="col">
@@ -17,9 +18,9 @@ const Filter = (filterData) => {
                 </label>
                 <select ref={filterData.category}>
                   <option />
-                  <option value="4">2 - 4 orang</option>
-                  <option value="6">4 - 6 orang</option>
-                  <option value="8">6 - 8 orang</option>
+                  <option value="small">2 - 4 orang</option>
+                  <option value="medium">4 - 6 orang</option>
+                  <option value="large">6 - 8 orang</option>
                 </select>
               </div>
 
@@ -29,9 +30,9 @@ const Filter = (filterData) => {
                 </label>
                 <select ref={filterData.harga}>
                   <option />
-                  <option value="400">{'< Rp. 400.000'}</option>
-                  <option value="600">Rp. 400.000 - Rp. 600.000</option>
-                  <option value="800">{'> Rp. 600.000'}</option>
+                  <option value="small">{'< Rp. 400.000'}</option>
+                  <option value="medium">Rp. 400.000 - Rp. 600.000</option>
+                  <option value="large">{'> Rp. 600.000'}</option>
                 </select>
               </div>
 
