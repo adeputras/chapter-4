@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import './style.scss';
@@ -7,11 +8,15 @@ import { Bars } from 'react-loader-spinner';
 import Filter from '../../components/filter';
 
 const CariMobil = () => {
-  const [cars, setCars] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [emptyData, setEmptyData] = useState(false);
+  const cars = useSelector(state => state.cars.data)
+  const loading = useSelector(state => state.cars.loading)
+  const emptyData = useSelector(state => state.cars.emptyData)
 
-  const baseUrl = 'https://bootcamp-rent-cars.herokuapp.com';
+  // const [cars, setCars] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [emptyData, setEmptyData] = useState(false);
+
+  // const baseUrl = 'https://bootcamp-rent-cars.herokuapp.com';
 
   // const getCars = () => {
   //   Axios.get(`${baseUrl}/cars`)
@@ -96,104 +101,103 @@ const CariMobil = () => {
   // const inputSampleEdit = useRef();
   // const inputSampleDelete = useRef();
 
-  const namaMobil = useRef('');
-  const category = useRef('');
-  const harga = useRef('');
-  const statusOrder = useRef('');
+  // const namaMobil = useRef('');
+  // const category = useRef('');
+  // const harga = useRef('');
+  // const statusOrder = useRef('');
 
-  const price = () => {
-    // menggunakan if else
-    // if (harga.current.value === "small") {
-    //   return {
-    //     maxPrice: 400000,
-    //   }
-    // }else if (harga.current.value === "medium"){
-    //   return {
-    //     minPrice: 400000,
-    //     maxPrice: 600000
-    //   }
-    // } else if(harga.current.value === "large") {
-    //   return {
-    //     minPrice: 600000
-    //   }
-    // } else {
-    //   return ""
-    // }
+  // const price = () => {
+  //   // menggunakan if else
+  //   // if (harga.current.value === "small") {
+  //   //   return {
+  //   //     maxPrice: 400000,
+  //   //   }
+  //   // }else if (harga.current.value === "medium"){
+  //   //   return {
+  //   //     minPrice: 400000,
+  //   //     maxPrice: 600000
+  //   //   }
+  //   // } else if(harga.current.value === "large") {
+  //   //   return {
+  //   //     minPrice: 600000
+  //   //   }
+  //   // } else {
+  //   //   return ""
+  //   // }
 
-    // menggunakan switch
-    switch (harga.current.value) {
-      case 'small':
-        return { maxPrice: 400000 };
-      case 'medium':
-        return { minPrice: 400000, maxPrice: 600000 };
-      case 'large':
-        return { minPrice: 600000 };
-      default:
-        return '';
-    }
-  };
+  //   // menggunakan switch
+  //   switch (harga.current.value) {
+  //     case 'small':
+  //       return { maxPrice: 400000 };
+  //     case 'medium':
+  //       return { minPrice: 400000, maxPrice: 600000 };
+  //     case 'large':
+  //       return { minPrice: 600000 };
+  //     default:
+  //       return '';
+  //   }
+  // };
 
-  const getData = (e) => {
-    e.preventDefault();
+  // const getData = (e) => {
+  //   e.preventDefault();
 
-    const params = {
-      name: namaMobil.current.value,
-      category: category.current.value,
-      minPrice: price().minPrice,
-      maxPrice: price().maxPrice,
-      isRented: statusOrder.current.value,
-    };
-    setLoading(true);
-    setEmptyData(false);
-    setCars([]);
+  //   const params = {
+  //     name: namaMobil.current.value,
+  //     category: category.current.value,
+  //     minPrice: price().minPrice,
+  //     maxPrice: price().maxPrice,
+  //     isRented: statusOrder.current.value,
+  //   };
+  //   setLoading(true);
+  //   setEmptyData(false);
+  //   setCars([]);
 
-    // const descending = (data) => {
-    //   return data.sort((a, b) => b.id - a.id);
-    // };
+  //   // const descending = (data) => {
+  //   //   return data.sort((a, b) => b.id - a.id);
+  //   // };
 
-    // Axios.get(`${baseUrl}/cars?name=${namaMobil.current.value}&category=${category.current.value}&price=${harga.current.value}&status=${statusOrder.current.value}
-    Axios.get(
-      `${baseUrl}/customer/v2/car?${queryData(params)}
-    `
-    )
-      .then((response) => {
-        if (response.data.cars.length > 0) {
-          setCars(response.data.cars);
-        } else {
-          setEmptyData(true);
-        }
+  //   // Axios.get(`${baseUrl}/cars?name=${namaMobil.current.value}&category=${category.current.value}&price=${harga.current.value}&status=${statusOrder.current.value}
+  //   Axios.get(
+  //     `${baseUrl}/customer/v2/car?${queryData(params)}`
+  //   )
+  //     .then((response) => {
+  //       if (response.data.cars.length > 0) {
+  //         setCars(response.data.cars);
+  //       } else {
+  //         setEmptyData(true);
+  //       }
 
-        setLoading(false);
+  //       setLoading(false);
 
-        // if (response) {
-        //   setTimeout(() => {
-        //     if (response.data.length > 0) {
-        //       const descending = response.data.sort((a, b) => b.id - a.id);
-        //       setCars(descending);
-        //     } else {
-        //       setEmptyData(true);
-        //     }
-        //     setLoading(false);
-        //   }, 2000);
-        // }
-      })
-      .catch((error) => console.log(error));
-  };
+  //       // if (response) {
+  //       //   setTimeout(() => {
+  //       //     if (response.data.length > 0) {
+  //       //       const descending = response.data.sort((a, b) => b.id - a.id);
+  //       //       setCars(descending);
+  //       //     } else {
+  //       //       setEmptyData(true);
+  //       //     }
+  //       //     setLoading(false);
+  //       //   }, 2000);
+  //       // }
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
-  const filterData = {
-    getData,
-    namaMobil,
-    category,
-    harga,
-    statusOrder,
-  };
+  // const filterData = {
+  //   getData,
+  //   namaMobil,
+  //   category,
+  //   harga,
+  //   statusOrder,
+  // };
 
   return (
     <div className="carimobil">
       <br />
       <br />
       <div className="container">
-        <Filter {...filterData} />
+        <Filter/>
         <div className="col-8">
           {loading ? (
             <Bars
@@ -211,7 +215,14 @@ const CariMobil = () => {
                   <div className="col-lg-6 card-wrapper" key={index}>
                     <div className="card">
                       <div className="card-thumbnail">
-                        <img src={car.image} alt="" />
+                        <img
+                          src={
+                            car.image !== null
+                              ? car.image
+                              : 'https://trirama.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.png'
+                          }
+                          alt=""
+                        />
                       </div>
                       <div className="card-desctiption">
                         <h3 className="name">{car.name}</h3>
