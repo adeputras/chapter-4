@@ -1,0 +1,17 @@
+.carimobil {
+  padding-top: 90px;
+  .bars-loading {
+    justify-content: center;
+    padding: 60px 0 0;
+  }
+  .card {
+    padding: 15px;
+    height: 100%;
+    &-wrapper {
+      margin-bottom: 30px;
+    }
+  }
+  .mr-2 {
+    margin-right:1rem;
+  }
+}
