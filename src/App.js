@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, HashRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Homepage from './pages/Homepage';
 import CariMobil from './pages/CariMobil';
 import CariMobilContext from './pages/CariMobilContext';
@@ -10,7 +10,6 @@ import Sample from './pages/sample';
 const App = () => {
   return (
     <div className="App">
-    <HashRouter>
       <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -19,7 +18,6 @@ const App = () => {
         <Route path="/cari-mobil-context" element={<CariMobilContext />} />
         <Route path="/cari-mobil/:productId" element={<Detail />} />
       </Routes>
-    </HashRouter>
     </div>
   );
 };
